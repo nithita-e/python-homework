@@ -1,0 +1,17 @@
+import requests
+import time
+
+characters = []
+
+for i in range(10):
+  url = f"https://rickandmortyapi.com/api/character/{i+1}"
+  resp = requests.get(url)
+  if resp.status_code == 200:
+    json_data = resp.json()
+    characters.append(
+        (json_data["id"],
+        json_data["name"],
+        json_data["status"],
+        json_data["species"],
+        json_data["gender"])
+    )

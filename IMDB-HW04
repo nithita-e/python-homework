@@ -1,0 +1,41 @@
+# select
+titles = imdb.find("h3",{"class" : "lister-item-header"})
+ratings = imdb.find("div",{"class" : "inline-block ratings-imdb-rating"})
+certificates = imdb.find("span",{"class" : "certificate"})
+runtimes = imdb.find("span",{"class" : "runtime"})
+genres = imdb.find("span",{"class" : "genre"})
+
+# clean html
+clean_titles = []
+for title in titles:
+  clean_titles.append(title.strip())
+
+clean_ratings = []
+for rating in ratings:
+  clean_ratings.append(rating.strip())
+
+clean_certificates = []
+for certificate in certificates:
+  clean_certificates.append(certificate.strip())
+
+clean_runtimes = []
+for runtime in runtimes:
+  clean_runtimes.append(runtime.strip())
+
+clean_genres = []
+for genre in genres:
+  clean_genres.append(genre.strip())
+
+# create dataframe
+import pandas as pd
+movies_database = pd.DataFrame(data ={
+      "title" : clean_titles,
+      "rating" : clean_ratings,
+      "certificate" : clean_certificates,
+      "runtime" : clean_runtimes,
+      "genre" : clean_genres
+  })
+
+
+# create column - kids friendly
+movies_database["kids_friendly"] = movies_database["certificate"] == "G"
